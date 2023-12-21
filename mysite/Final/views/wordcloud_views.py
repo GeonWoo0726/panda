@@ -42,7 +42,14 @@ import numpy as np
 import os
 from django.conf import settings
 import random
+import matplotlib.font_manager as fm
 
+# 새로운 폰트 경로 설정
+font_path = os.path.join(settings.STATICFILES_DIRS[0], 'fonts', 'NanumBareunGothicL.ttf')
+
+# matplotlib의 폰트 속성 설정
+font_prop = fm.FontProperties(fname=font_path, size=12)
+plt.rcParams['font.family'] = font_prop.get_name()
 
 def word(request):
     if request.method == 'POST':
@@ -152,7 +159,7 @@ def word(request):
 
         # 워드클라우드 생성 부분 수정
         wordcloud = WordCloud(
-            font_path='C:/Windows/Fonts/malgun.ttf',
+            font_path=font_path,
             background_color='white',
             mask=mask_image,  # 마스크 이미지 적용
             width=700,  # 기존 너비 유지
